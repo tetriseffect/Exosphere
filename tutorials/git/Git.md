@@ -120,4 +120,17 @@ What if you just want to move Reg.sol without making a copy? That's where the se
 
 Now to move Reg.sol back home, do `mv Reg.sol ~/`. To check if successful `cd ..` back then do `ls` to list all the contents. If you can see it, congratulations! Now move it back to where it's supposed to be: `mv Reg.sol Documents`.
 
+The Shell is a bit like being in the cockpit of an aeroplane. There are many dials and things you can do which can greatly increase the speed and effectiveness of your work if you know what you're doing, but not, then it's not much use.
 
+One of the best skills to know is how to read and write from files. `cd` into your Documents directory and `touch read.txt` to create a new file called read.txt. There a couple of options for adding text, but to edit from the command line you can use:
+
+`nano read.txt`
+
+`nano` is a convenient editor for writing to files. You could avoid having to create the file via `touch`  If this is unavailable in your Shell version, you can also try another shell editor, `vi`, but the controls are less intuitive than nano. Enter these two lines of text:
+
+```
+Mary had a little lamb
+His fleece was white as snow
+```
+
+When you are finished press `ctrl-o` to save. It will give you an option to write to this file and change the name. Change it to littlelamb.txt (or whatever you like). Now press `ctrl-x` to exit back into the Documents directory.
