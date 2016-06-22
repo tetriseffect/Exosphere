@@ -125,13 +125,13 @@ Now to move Reg.sol back home, do `mv Reg.sol ~/`. To check if successful `cd ..
 
 ###Reading, Writing and Editing
 
-The Shell is a bit like being in the cockpit of an aeroplane. There are many dials and things you can do which can greatly increase the speed and effectiveness of your work if you know what you're doing, but not, then it's not much use.
+The Shell is a bit like being in the cockpit of an aeroplane. There are many dials and things you can do which can greatly increase the speed and effectiveness of your work, but only if you know what you're doing.
 
-One of the best skills to know is how to read and write from files. `cd` into your Documents directory and `touch read.txt` to create a new file called read.txt. There a couple of options for adding text, but to edit from the command line you can use:
+One of the most useful skills is knowing how to read, write and edit files directly. Having to open a text editor every time you need to make a change is cumbersome. In shell, there are a number of options for editing directly. `cd` into your Documents directory and `touch read.txt` to create a new file called read.txt. To begin editing read.txt, use:
 
 `nano read.txt`
 
-`nano` is a convenient editor for writing to files. You could avoid having to create the file via `touch`  If this is unavailable in your Shell version, you can also try another shell editor, `vi`, but the controls are less intuitive than nano. Enter these two lines of text:
+`nano` is a convenient editor for writing to files. You could avoid having to create the file via `touch` by simply using `nano read.txt` which automatically creates the file as you are opening it. Now enter these two lines of text:
 
 ```
 Mary had a little lamb
@@ -157,7 +157,7 @@ echo Mary had a little fox > littlelamb2.txt
 
 cat littlelamb2.txt
 ```
-As you can see, using single `>` replaces the original two lines with one line. Now delete it: `rm littlelamb2.txt`. Now let's complete the verse by appending two lines to the end of littlelamb1.txt.
+Using single `>` replaces the original two lines with one line. Now delete it: `rm littlelamb2.txt`. Now let's complete the verse by appending two lines to the end of littlelamb1.txt.
 
 So far we have used the `echo` command to enter text on one line, but what if we want to use multiple lines? There are a couple of factors that go into this. First we attach the `-e` flag to `echo`: `echo -e`. Second use the backslash to go to a new line in the shell: `\`. Make sure you encircle the lines in quotes. At the end, write it into `littlelamb1.txt` using the `>>` symbol.
 
@@ -180,15 +180,15 @@ And everywhere that Mary went
 The lamb was sure to go.
 
 ```
-As you can see, using `>>` the lines have been appended to the end of the first two.
+Using `>>` the lines have been appended to the end of the first two.
 
-What if we wanted to edit a single word in the verse without having to do it manually? For this we will use a very powerful tool called Stream Editor (Sed). The scope of Sed is vast, and covering all of it is beyond the scope of this tutorial. If you are interested, you can learn more about it here: http://www.grymoire.com/Unix/Sed.html.
+What if we wanted to edit a single word in the verse without having to do it manually? For this we will use a very powerful tool called Stream Editor (Sed). The scope of Sed is vast, and covering all of it is beyond the scope of this tutorial. You can learn more about it here if you're interested: http://www.grymoire.com/Unix/Sed.html.
 
 We want to use `sed` to change the word `lamb` to `sheep` in littlelamb1.txt. The syntax using sed is this:
 
 `sed 's/[old]/[new]/' [filename]`
 
-As you can see, the sed command is surrounded by single quotes (not necessary, but recommended), uses the keyword `s` meaning substitute, followed by three `/` demarcations with the old string and the string to replace it with. After the substitution command comes the filename we want to apply it to, which in our case is littlelamb.txt. So let's try it now:
+The sed command is surrounded by single quotes (not necessary, but recommended), uses the keyword `s` meaning substitute, followed by three `/` demarcations with the old string and the string to replace it with. After the substitution command comes the filename we want to apply it to, which in our case is littlelamb.txt. So let's try it now:
 
 ```
 sed 's/lamb/sheep/' littlelamb1.txt
