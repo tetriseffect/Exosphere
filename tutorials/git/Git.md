@@ -16,7 +16,8 @@ Please don't just read this tutorial. If you want to read, I reccommend Dostoevs
 
 First, let's quickly run through navigating your way around your file system via the command line. This is a quick Shell tutorial for beginners without any assumptions- if you are already a wizard you can skip this section and go onto Git.
 
-If you are on Linux or Mac, open the terminal. If you are on Windows open Powershell. If you don't have this, then download Git by following this link: https://git-scm.com/download/win and choose "64-bit Git for Windows Setup." Powershell should be included. Once this is downloaded Windows users should be able to see Powershell. While the terms "shell", "command line" and "terminal" are interchangeable, we'll use the generic term  "shell" from now on regardless of operating system.
+If you are on Linux or Mac, open the terminal. If you are on Windows open Powershell. If you don't have this, then download Git by following 
+this link: https://git-scm.com/download/win and choose "64-bit Git for Windows Setup." Powershell should be included. Once this is downloaded Windows users should be able to see Powershell. While the terms "shell", "command line" and "terminal" are interchangeable, we'll use the generic term "shell" from now on regardless of operating system.
 
 ###Listing
 
@@ -28,7 +29,7 @@ If you need to see more details, such as creation date, created by and permissio
 
 `drwxrwxr-x 2 physes physes 4096 Jun 20 03:40 Git.md`
 
-The first part `drwxrwxr -x` sets security permissions of whether the file is readable, writable or executable. `physes` is my username. 	`Jun 20 03:40` is the date, and `Git.md` is the file- which happens to be this one.
+The first part `drwxrwxr -x` sets security permissions of whether the file is readable, writable or executable. `physes` is my username. `Jun 20 03:40` is the date, and `Git.md` is the file- which happens to be this one. We will look closer at permissions later in this tutorial.
 
 Let's say you want to see what's in Documents. How to get there?
 
@@ -42,7 +43,8 @@ Do `ls` in the Documents directory to list all of your files. Great, now you wan
 
 Very simply- do `cd ..` This moves you back one step in the tree.
 
-Bear in mind that, in the shell, two periods- `..` generally symbolises a single directory- one step in the three. If you wanted to go back two steps in the tree, you would do this: `cd ../../` Forward-slack `/` is a way of indicating the break-point. If you wanted to step back three steps it would be `cd ../../../` and so on. Although there are quicker ways of getting to other branches of the directory tree than manually cd-ing everywhere.
+Bear in mind that, in the shell, two periods- `..` generally symbolises a single directory- one step in the three. If you wanted to go back two steps in the tree, you would do this: `cd ../../` Forward-slack `/` is a way of indicating the break-point. If you wanted to step back three
+ steps it would be `cd ../../../` and so on. Although there are quicker ways of getting to other branches of the directory tree than manually cd-ing everywhere.
 
 You can navigate fairly intuitively doing `ls` and `cd` forward `cd ..` back to look around. Do this about five times to get a sense of how it works.
 
@@ -54,7 +56,7 @@ Try this. `pwd` will show where you are in the file tree in relation to “root�
 
 ###Home `~` and Root`/`
 
-You can return to your Home directory from any location by doing `cd ~` (in all of these commands, don't forget the space). The tilda `~` is a general way to refer to the home directory in shell-speak. So anytime you are lost, just do `cd ~` and you will return to where you started. Similarly, if you want to jump all the way back to root, just do `cd /`.
+You can return to your Home directory from any location by doing `cd ~` (in all of these commands, don't forget the space). The tilde `~` is a general way to refer to the home directory in shell-speak. So anytime you are lost, just do `cd ~` and you will return to where you started. Similarly, if you want to jump all the way back to root, just do `cd /`.
 
 Let's try it. Go back to root (`cd /`), then `ls` to see the files. It probably won't be immediately obvious how to get back to the home directory, so you can do `cd ~` to get back to where you started.
 
@@ -98,13 +100,30 @@ Use the `mv` (move) command. `mv` does a number of things- you can use the synta
 
 `rmdir` only works if the directory is empty. Trying it on `Documents` with result in 
 
-`rmdir: failed to remove ‘Downloads’: Directory not empty`
+`rmdir: failed to remove ‘Downloads’: Directory not empty
+`
 
 To delete a directory which contains other contents, use `rm -r`. But be careful! There is no way of undoing this and many programmers have been burned by using this command.
 
 Do `rm -r Old` to remove the Old directory you created earlier, along with its files.
 
 ###Moving and Copying Stuff
+
+What if you want to make a copy of a file? Use the `cp [destination]` command, where `[destination]` stands for the path the file will be copied to. Note that you can't make an identical copy of the file in the current directory. Let's try it. `cd` into “Documents” and create a new file by doing `touch Reg.sol`. Then to make a copy, do `cp Reg.sol .`. 
+
+(Note: double period `..` usually means one directory behind on the tree, whereas the single period `.` usually symbolizes the working directory. In the `cp Reg.sol .` command, `.` is a used as [destination]).
+
+The result of this command is an error:
+
+`cp: ‘Reg.sol’ and ‘./Reg.sol’ are the same file`
+
+So instead, let's make a copy of Reg.sol back in the Home directory. You can use either `cp Reg.sol ..` with `..` as the destination, or you can use the tilde: `cp Reg.sol ~`.
+
+What if you just want to move Reg.sol without making a copy? That's where the second use case of `mv` comes in handy. Delete the copy you just made in the home directory with `rm ~/Reg.sol`.
+
+Now to move Reg.sol back home, do `mv Reg.sol ~/`. To check if successful `cd ..` back then do `ls` to list all the contents. If you can see it, congratulations! Now move it back to where it's supposed to be: `mv Reg.sol Documents`.
+
+###Reading, Writing and Editing
 
 The Shell is a bit like being in the cockpit of an aeroplane. There are many dials and things you can do which can greatly increase the speed and effectiveness of your work if you know what you're doing, but not, then it's not much use.
 
@@ -140,22 +159,51 @@ cat littlelamb2.txt
 ```
 As you can see, using single `>` replaces the original two lines with one line. Now delete it: `rm littlelamb2.txt`. Now let's complete the verse by appending two lines to the end of littlelamb1.txt.
 
-So far we have used the `echo` command to enter text on one line, but what if we want to use multiple lines? There are a couple of factors that go into this. First we attach the `-e` flag to `echo`: `echo -e`. Second use the backslash to go to a new line in the shell: `\`. Now use quote marks on your string. At the end of the line, use the newline `\n` symbol. At the end, write it into `littlelamb1.txt` using the `>>` symbol.
+So far we have used the `echo` command to enter text on one line, but what if we want to use multiple lines? There are a couple of factors that go into this. First we attach the `-e` flag to `echo`: `echo -e`. Second use the backslash to go to a new line in the shell: `\`. Make sure you encircle the lines in quotes. At the end, write it into `littlelamb1.txt` using the `>>` symbol.
 
 All together, this looks like:
 
 ```
+#to go to the next line, just hit enter
+
 echo -e \
-“And everywhere that Mary went,\n
+“And everywhere that Mary went
 The lamb was sure to go.” >> littlelamb1.txt
 
 #Now print:
 
 cat littlelamb1.txt
 
-Mary had a little lamb,
-His fleece was white as snow,
-And everywhere that Mary went,
+Mary had a little lamb
+His fleece was white as snow
+And everywhere that Mary went
 The lamb was sure to go.
 
 ```
+As you can see, using `>>` the lines have been appended to the end of the first two.
+
+What if we wanted to edit a single word in the verse without having to do it manually? For this we will use a very powerful tool called Stream Editor (Sed). The scope of Sed is vast, and covering all of it is beyond the scope of this tutorial. If you are interested, you can learn more about it here: http://www.grymoire.com/Unix/Sed.html.
+
+We want to use `sed` to change the word `lamb` to `sheep` in littlelamb1.txt. The syntax using sed is this:
+
+`sed 's/[old]/[new]/' [filename]`
+
+As you can see, the sed command is surrounded by single quotes (not necessary, but recommended), uses the keyword `s` meaning substitute, followed by three `/` demarcations with the old string and the string to replace it with. After the substitution command comes the filename we want to apply it to, which in our case is littlelamb.txt. So let's try it now:
+
+```
+sed 's/lamb/sheep/' littlelamb1.txt
+```
+Which should give the corrected output. Try this with a few files to substitute new words in place of old to get a sense of how it works.
+
+
+###Permission Management
+
+The most useful thing to learn into Permission Management is `su` and `sudo`, which is a program which allows the user to run programs with the security priveleges of another user. `su` stands for `superuser` and `sudo` stands for `superuser do`.
+
+To try this out in practice, navigate to the root of your computer with `cd /`. Now attempt to create a file: `touch file.txt`, which will recieve a response: `touch: cannot touch ‘file.txt’: Permission denied`.
+
+Now prefix the command with `sudo`:
+
+`sudo touch file.txt`
+
+Now `ls` to see the newly created file with the other root directories. To delete, do `sudo rm file.txt` and return home- `cd ~`.
