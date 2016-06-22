@@ -106,20 +106,6 @@ Do `rm -r Old` to remove the Old directory you created earlier, along with its f
 
 ###Moving and Copying Stuff
 
-What if you want to make a copy of a file? Use the `cp [destination]` command, where `[destination]` stands for the path the file will be copied to. Note that you can't make an identical copy of the file in the current directory. Let's try it. `cd` into “Documents” and create a new file by doing `touch Reg.sol`. Then to make a copy, do `cp Reg.sol .`. 
-
-(Note: double period `..` usually means one directory behind on the tree, whereas the single period `.` usually symbolizes the working directory. In the `cp Reg.sol .` command, `.` is a used as [destination]).
-
-The result of this command is an error:
-
-`cp: ‘Reg.sol’ and ‘./Reg.sol’ are the same file`
-
-So instead, let's make a copy of Reg.sol back in the Home directory. You can use either `cp Reg.sol ..` with `..` as the destination, or you can use the tilda: `cp Reg.sol ~`.
-
-What if you just want to move Reg.sol without making a copy? That's where the second use case of `mv` comes in handy. Delete the copy you just made in the home directory with `rm ~/Reg.sol`.
-
-Now to move Reg.sol back home, do `mv Reg.sol ~/`. To check if successful `cd ..` back then do `ls` to list all the contents. If you can see it, congratulations! Now move it back to where it's supposed to be: `mv Reg.sol Documents`.
-
 The Shell is a bit like being in the cockpit of an aeroplane. There are many dials and things you can do which can greatly increase the speed and effectiveness of your work if you know what you're doing, but not, then it's not much use.
 
 One of the best skills to know is how to read and write from files. `cd` into your Documents directory and `touch read.txt` to create a new file called read.txt. There a couple of options for adding text, but to edit from the command line you can use:
@@ -133,4 +119,43 @@ Mary had a little lamb
 His fleece was white as snow
 ```
 
-When you are finished press `ctrl-o` to save. It will give you an option to write to this file and change the name. Change it to littlelamb.txt (or whatever you like). Now press `ctrl-x` to exit back into the Documents directory.
+When you are finished press `ctrl-o` to save. It will give you an option to write to this file and change the name. Change it to littlelamb1.txt. Now press `ctrl-x` to exit back into the Documents directory.
+
+To read the contents of file without having to go back into the editor, use the `cat` command. `cat` is a useful feature which takes an input and displays it on the shell.
+
+`cat littlelamb1.txt`
+
+To see the first two lines of the rhyme displayed on the screen. This is a handy way to easily inspect files. Now what if we want to write to a file without having to go through the hassle of opening it via `nano`?
+
+This is where the `echo` command is used. `echo` is used in a number of contexts in shell scripting, but for our purposes, we will contrast it with `cat` for reading and `echo` for writing files.
+
+The syntax to write to a file is `echo [input] >> [file]`. (you can quote the text but it's not necessary). Using `>>` appends the text input to the END of the file, without deleting the previous lines. `>` on the other hand deletes what is already there and replaces all of it is your text input. Unless you are sure (or have committed your work to Git) it's better to stick with `>>`. 
+
+To test this out, let's make a copy of `littlelamb1.txt` to play around with: `cp littlelamb1.txt littlelamb.txt2` and check. Now try:
+
+```
+echo Mary had a little fox > littlelamb2.txt
+
+cat littlelamb2.txt
+```
+As you can see, using single `>` replaces the original two lines with one line. Now delete it: `rm littlelamb2.txt`. Now let's complete the verse by appending two lines to the end of littlelamb1.txt.
+
+So far we have used the `echo` command to enter text on one line, but what if we want to use multiple lines? There are a couple of factors that go into this. First we attach the `-e` flag to `echo`: `echo -e`. Second use the backslash to go to a new line in the shell: `\`. Now use quote marks on your string. At the end of the line, use the newline `\n` symbol. At the end, write it into `littlelamb1.txt` using the `>>` symbol.
+
+All together, this looks like:
+
+```
+echo -e \
+“And everywhere that Mary went,\n
+The lamb was sure to go.” >> littlelamb1.txt
+
+#Now print:
+
+cat littlelamb1.txt
+
+Mary had a little lamb,
+His fleece was white as snow,
+And everywhere that Mary went,
+The lamb was sure to go.
+
+```
