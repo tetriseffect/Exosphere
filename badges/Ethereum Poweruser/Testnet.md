@@ -1,5 +1,46 @@
 #Ethereum Superuser
 
+###Cheatsheet
+```
+
+#Install Geth
+
+sudo apt-get install software-properties-common
+sudo add-apt-repository -y ppa:ethereum/ethereum
+sudo apt-get update
+sudo apt-get install ethereum
+#Install solidity
+sudo apt-get install solc
+
+#Add to PATH
+solc=$PATH:/usr/bin/solc
+
+#Synchronize the blockchain
+geth --fast
+
+#Synchronize the testnet
+geth --testnet –fast
+
+#Mine
+geth --mine
+
+#Disconnect
+ctrl-d
+
+#Connect in alternate window
+geth --rpc --rpcaddr localhost --rpcapi "eth,net,web3,admin" attach ipc:/home/[user]/.ethereum/testnet/geth.ipc
+
+#Check balance
+web3.fromWei(web3.eth.getBalance('[address]'),'ether').toString(10)
+
+#Connect to console
+geth --console
+
+#set Solidity path
+admin.setSolc("/usr/bin/solc")
+```
+
+
 ###Introduction
 
 This is a course for mastering the available tools for Ethereum.
@@ -30,7 +71,11 @@ Now open another window and connect to Digital Ocean:
 
 Run this command to succcessfully connect to attach the javascript console to the running instance, while also connecting the the RPC apis:
 
-geth --rpc --rpcaddr localhost --rpcapi "eth,net,web3,admin" attach ipc:/home/[user]/.ethereum/testnet/geth.ipc
+geth --rpc --rpcaddr localhost --rpcapi "eth,net,web3,admin" --solc attach ipc:/home/[user]/.ethereum/testnet/geth.ipc
+
+This is a chain of seperate commands strung together. `--rpc` is 
+
+Keep in mind that using
 
 ###Set the Solidity Compiler
 
@@ -63,8 +108,11 @@ To make sure the chain is fully synced, run `eth.getBlock("latest").number`. Thi
 If it is synced to the latest, run:
 
 ```
-web3.fromWei(web3.eth.getBalance('0xb3970f2bd5f6249e4e472196f0de4103276ead43'),'ether').toString(10)
+web3.fromWei(web3.eth.getBalance('[address]'),'ether').toString(10)
 ```
+
+###Check the
+
 
 Implement a Greeter contract: 
 
