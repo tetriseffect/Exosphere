@@ -280,3 +280,28 @@ Each seperation, designated by `:`, is an individual path which the Shell checks
 
 There are a number of ways of doing it, and `export` is one of them. In the above command, “PATH” is a kind of handle which can be replaced by anything. Another example example, to add Solidity to the PATH,you would do `solc=$PATH:/usr/bin/solc`.
 
+This will set the path in UNIX.
+
+###Bash Profile
+
+When bash is invoked as an interactive login shell, or as a non-interactive shell with the --login option, it first reads and executes commands from the file /etc/profile, if that file exists. After reading that file, it looks for ~/.bash_profile, ~/.bash_login, and ~/.profile, in that order, and reads and executes commands from the first one that exists and is readable.
+There are a number of things you can do with the profile. Do `nano ~/.profile` to check the profile. You'll see a shell script which configures HOME and PATH. 
+
+Now `ctrl-x` to exit and look at `~/.bash_profile`.
+
+In `~/.bash_profile` you can edit the shell prompt.
+
+To do this, open `nano ~/.bash_profile` now. The prompt is designated by `PS2`. To change it, type `export PS2= “[prompt]”` where [prompt] is whatever you like. Press `ctrl-o` to save (don't change the filename). My prompt is a minimal “ >> “ at the beginning of every line, which is done with `export PS2= “ >> “`. But you can make it whatever you want. Exit `ctrl-x`.
+
+An alias is a kind of shortcut which lives in `~/.bashrc`. Aliases can refer to both particular paths, shell commands and even chained-together statements and commands. An alias takes the form of `[alias]='[command/s]'`. For example, if you want to replace `ls` with `list`, the command would be `list='ls'`.
+
+You can add the alias command to the end of `~/.bashrc` by opening it, but also by using `echo`.
+
+To create a keyword `change` instead of `cd`, do `echo alias change=\”cd\” >> ~/.bashrc`. Caution: this new alias won't be usable until you close and restart the shell. Also: if you to type the alias directly into bashrc there is no need to prefix the quotes with `\`. This is only for the purpose of echoing.
+
+What if we can to create a shortcut to a particular file? Let's say we want to create a short “docs” for Documents and “pics” for Pictures. You can find the full path using `pwd` then take note. The commands are:
+```
+echo alias docs=\”cd /path/to/Documents\” >> ~/.bashrc
+echo alias pics=\”cd /path/to/Pictures\” >> ~/.bashrc
+```
+Now exit the shell and restart, and try out the `docs` and `pics` shortcuts. Try create your own!
