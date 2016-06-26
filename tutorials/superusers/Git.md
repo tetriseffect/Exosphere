@@ -1,4 +1,4 @@
-#Superuser
+#Superuser Tutorial
 
 ##Introduction
 
@@ -10,11 +10,24 @@ According to neuroscience, the most effective ways to learn new information in a
 
 Please don't just read these tutorials. If you want to read, I reccommend Dostoevsky. Dostoevsky wrote better novels than I do and will keep you entertained for many hours. If you truly want to learn and retain, the best approach is to follow along and practice.
 
-##Contents
+##Table of Contents
+
 1. [Get Started](#Get Started)
 2. [Listing](#Listing)
-3. [Change Directory)(#Change Directory)
-
+3. [Change Directory](#Change Directory)
+4. [Print Working Directory](#Print Working Directory)
+5. [Home ~ and Root /](#Home `~` and Root `/`)
+6. [Make Files and Directories](#Make Files and Directories)
+8. [Remove Files and Directories](#Remove Files and Directories)
+9. [Deleting Full Directories](#Deleting Full Directories)
+10. [Moving and Copying Stuff](#Moving and Copying Stuff)
+11. [Danger](#Danger)
+12. [Reading, Writing and Editing](#Reading, Writing and Editing)
+13. [Permission Management](#Permission Management)
+14. [Adapting the Environment](#Adapting the Environment)
+15. [Bash Profile](#Bash Profile)
+16. [Summary](#Summary)
+17. [Conclusion](#Conclusion)
 
 ###Get Started
 
@@ -55,6 +68,8 @@ You can navigate fairly intuitively doing `ls` and `cd` forward `cd ..` back to 
 If at any time you get lost, don't panic! First of all, you can print your current location using `pwd` (print working directory.
 
 Try this. `pwd` will show where you are in the file tree in relation to “root”- which is the beginning and represented by a forward-slash `/`. The home directory is usually one or two steps beyond root.
+
+At any time you can clear the shell screen using the keyword `clear`, which will remove the mess (although you can still scroll up if you need to).
 
 ###Home `~` and Root`/`
 
@@ -118,15 +133,23 @@ The result of this command is an error:
 
 `cp: ‘Reg.sol’ and ‘./Reg.sol’ are the same file`
 
-So instead, let's make a copy of Reg.sol back in the Home directory. You can use either `cp Reg.sol ..` with `..` as the destination, or you can use the tilda: `cp Reg.sol ~`.
+So instead, let's make a copy of Reg.sol back in the Home directory. You can use either `cp Reg.sol ..` with `..` as the destination, or you can use the tilda: `cp Reg.sol ~`. 
 
 What if you just want to move Reg.sol without making a copy? That's where the second use case of `mv` comes in handy. Delete the copy you just made in the home directory with `rm ~/Reg.sol`.
 
 Now to move Reg.sol back home, do `mv Reg.sol ~/`. To check if successful `cd ..` back then do `ls` to list all the contents. If you can see it, congratulations! Now move it back to where it's supposed to be: `mv Reg.sol Documents`.
 
-###Reading, Writing and Editing
+###Danger
 
-The Shell is a bit like being in the cockpit of an aeroplane. There are many dials and things you can do which can greatly increase the speed and effectiveness of your work if you know what you're doing, but not, then it's not much use.
+The Shell is a bit like being in the cockpit of an aeroplane. There are many dials and things you can do which can greatly increase the speed and effectiveness of your work if you know what you're doing. But if you don't know what you're doing, then things could go badly wrong.
+
+Here is an article which lists dangerous commands that [you should never use](http://www.howtogeek.com/125157/8-deadly-commands-you-should-never-run-on-linux/).
+
+Earlier, we used a command, `rm -r [directory]` to recursively delete directories with full contents. Another possibility is `rm -rf [directory]`. Both of these are safe (as long as you are happy with removing everything in the chosen directory).
+
+NEVER use the command `rm -rf /` or `rm -rf *`. This will irreversibly wipe your computer clean. It implements a recursive deleting process starting at the root of the file tree, which is designated by `/`. It's important to know about `rm -rf /` so that you can be sure to avoid it.
+
+###Reading, Writing and Editing
 
 One of the best skills to know is how to read and write from files. `cd` into your Documents directory and `touch read.txt` to create a new file called read.txt. There a couple of options for adding text, but to edit from the command line you can use:
 
@@ -156,7 +179,8 @@ To test this out, let's make a copy of `littlelamb1.txt` to play around with: `c
 ```
 echo Mary had a little fox > littlelamb2.txt
 
-cat littlelamb2.txt
+cat littlelamb2.txt 
+
 ```
 As you can see, using single `>` replaces the original two lines with one line. Now delete it: `rm littlelamb2.txt`. Now let's complete the verse by appending two lines to the end of littlelamb1.txt.
 
@@ -180,7 +204,7 @@ His fleece was white as snow
 And everywhere that Mary went
 The lamb was sure to go.
 
-```
+``` 
 As you can see, using `>>` the lines have been appended to the end of the first two.
 
 What if we wanted to edit a single word in the verse without having to do it manually? For this we will use a very powerful tool called Stream Editor (Sed). The scope of Sed is vast, and covering all of it is beyond the scope of this tutorial. If you are interested, you can learn more about it here: http://www.grymoire.com/Unix/Sed.html.
@@ -203,7 +227,7 @@ The most useful thing to learn into Permission Management is `su` and `sudo`, wh
 
 To try this out in practice, navigate to the root of your computer with `cd /`. Now attempt to create a file: `touch file.txt`, which will recieve a response: `touch: cannot touch ‘file.txt’: Permission denied`.
 
-Now prefix the command with `sudo`:
+Now prefix the command with `sudo`: 
 
 `sudo touch file.txt`
 
@@ -228,7 +252,7 @@ There are three permission groups:
 
 ```
 u = user
-g = members of your group
+g = members of your group 
 o = others
 a = all
 ```
@@ -257,6 +281,7 @@ chmod u-w permissions.txt  //write permission is removed from “user”
 chmod o+w permissions.txt  //add write permission to “other”
 chmod u=wr permissions.txt //give both write and read perms to user 
 ```
+Incidentally, it's worth testing. After removing write permissions for the user with `chmod u-w permisssions.txt`, do `nano permissions.txt` and change the file to anything you like and try to save with `ctrl-o`. You will not be allowed. Try it. Also try removing read permission and doing `cat` on the file.
 
 After trying it out a couple of times, do `ls -l` and you will see that the line has been changed. `x` only works for programs, not files.
 
@@ -286,20 +311,23 @@ This will set the path in UNIX.
 
 ###Bash Profile
 
-When bash is invoked as an interactive login shell, or as a non-interactive shell with the --login option, it first reads and executes commands from the file /etc/profile, if that file exists. After reading that file, it looks for ~/.bash_profile, ~/.bash_login, and ~/.profile, in that order, and reads and executes commands from the first one that exists and is readable.
 There are a number of things you can do with the profile. Do `nano ~/.profile` to check the profile. You'll see a shell script which configures HOME and PATH. 
 
 Now `ctrl-x` to exit and look at `~/.bash_profile`.
 
 In `~/.bash_profile` you can edit the shell prompt.
 
-To do this, open `nano ~/.bash_profile` now. The prompt is designated by `PS2`. To change it, type `export PS2= “[prompt]”` where [prompt] is whatever you like. Press `ctrl-o` to save (don't change the filename). My prompt is a minimal “ >> “ at the beginning of every line, which is done with `export PS2= “ >> “`. But you can make it whatever you want. Exit `ctrl-x`.
+To do this, open `nano ~/.bash_profile` now. The prompt is designated by `PS2`. To change it, type `export PS2= “[prompt]”` where [prompt] is whatever you like. Press `ctrl-o` to save (don't change the filename). My prompt is a minimal “ >> “ at the beginning of every line, which is done with `export PS2= “ >> “`. But you can make it whatever you want. Save `ctrx-o` and exit `ctrl-x`.
 
 An alias is a kind of shortcut which lives in `~/.bashrc`. Aliases can refer to both particular paths, shell commands and even chained-together statements and commands. An alias takes the form of `[alias]='[command/s]'`. For example, if you want to replace `ls` with `list`, the command would be `list='ls'`.
 
 You can add the alias command to the end of `~/.bashrc` by opening it, but also by using `echo`.
 
-To create a keyword `change` instead of `cd`, do `echo alias change=\”cd\” >> ~/.bashrc`. Caution: this new alias won't be usable until you close and restart the shell. Also: if you to type the alias directly into bashrc there is no need to prefix the quotes with `\`. This is only for the purpose of echoing.
+To create a keyword `change` instead of `cd`, do: 
+
+`echo alias change=\”cd\” >> ~/.bashrc` 
+
+Caution: this new alias won't be usable until you close and restart the shell. Also: if you to type the alias directly into bashrc there is no need to prefix the quotes with `\`. This is only for the purpose of echoing.
 
 What if we can to create a shortcut to a particular file? Let's say we want to create a short “docs” for Documents and “pics” for Pictures. You can find the full path using `pwd` then take note. The commands are:
 ```
@@ -309,5 +337,103 @@ echo alias pics=\”cd /path/to/Pictures\” >> ~/.bashrc
 Now exit the shell and restart, and try out the `docs` and `pics` shortcuts. Try create your own!
 
 ###Summary
+```
+#This is a list of everything we've learned in this tutorial. Follow along any #time you need to refresh your memory.
 
+ls
+ls -alt
+ls -l
+cd Documents
+ls
+cd ..
+pwd
+clear
+cd /
+ls
+cd ~
+ls
+mkdir New
+cd New
+touch Index.js Contract.sol Hello.txt
+rm Index.js Contract.sol
+cd ..
+cd Documents
+cd ../New
+ls
+mkdir Newest
+rmdir Newest
+cd ..
+mv New Old
+rmdir Documents (fails)
+rm -r Old
+cd Documents 
+touch Reg.sol 
+cp Reg.sol . (fails)
+cp Reg.sol ~ 
+rm ~/Reg.sol
+ls
+mv Reg.sol ~/ 
+cd .. 
+ls
+cd Documents 
+touch read.txt 
+nano read.txt 
+Mary had a little lamb 
+His fleece was white as snow 
+ctrl-o 
+littlelamb1.txt 
+ctrl-x 
+cat littlelamb1.txt
+cp littlelamb1.txt littlelamb2.txt 
+ls 
+echo Mary had a little fox > littlelamb2.txt 
+cat littlelamb2.txt 
+rm littlelamb2.txt 
 
+echo -e \ 
+“And everywhere that Mary went 
+The lamb was sure to go.” >> littlelamb1.txt
+
+cat littlelamb1.txt 
+sed 's/lamb/sheep/' littlelamb1.txt
+cat littlelamb1.txt
+cd / 
+touch file.txt(fails) 
+sudo touch file.txt 
+ls 
+sudo rm file.txt 
+cd ~
+ls -l 
+touch permissions.txt 
+ls -l 
+chmod o=wr permissions.txt 
+chmod u-w permissions.txt 
+chmod o+w permissions.txt 
+nano permissions.txt
+write anything to file
+ctrl-o (fails)
+ctrl-x
+chmod u-r permissions.txt
+cat permissions.txt (fails)
+ls -l
+env
+echo $HOME
+echo $PATH
+solc=$PATH:/usr/bin/solc
+echo $PATH
+nano ~/.profile 
+ctrl-x 
+nano ~/.bash_profile 
+export PS2=” >> “ 
+ctrl-o 
+ctrl-x
+echo alias change=\”cd\” >> ~/.bashrc
+echo alias docs=\”cd /path/to/Documents\” >> ~/.bashrc
+echo alias pics=\”cd /path/to/Pictures\” >> ~/.bashrc
+```
+
+###Conclusion
+
+This has been a brief introduction to using the shell. If you recieved value from this tutorial, I accept Ether donations: 0x6c96ade1ddad3511cbe5682beff034d990b5b22a.
+
+The next tutorial will cover Git. 
