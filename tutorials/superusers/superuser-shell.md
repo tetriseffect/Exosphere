@@ -1,4 +1,4 @@
-#Superuser Tutorial
+#Superuser Part I: Shell
 
 ##Introduction
 
