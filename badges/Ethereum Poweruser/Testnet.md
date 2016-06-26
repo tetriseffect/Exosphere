@@ -71,11 +71,9 @@ Now open another window and connect to Digital Ocean:
 
 Run this command to succcessfully connect to attach the javascript console to the running instance, while also connecting the the RPC apis:
 
-geth --rpc --rpcaddr localhost --rpcapi "eth,net,web3,admin" --solc attach ipc:/home/[user]/.ethereum/testnet/geth.ipc
+`geth --rpc --rpcaddr localhost --rpcapi "eth,net,web3,admin" --solc attach ipc:/home/[user]/.ethereum/testnet/geth.ipc`
 
-This is a chain of seperate commands strung together. `--rpc` is 
-
-Keep in mind that using
+This is a chain of seperate commands strung together. You can learn more about then with `geth help`.
 
 ###Set the Solidity Compiler
 
