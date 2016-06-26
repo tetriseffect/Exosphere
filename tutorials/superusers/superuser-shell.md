@@ -12,22 +12,22 @@ Please don't just read these tutorials. If you want to read, I reccommend Dostoe
 
 ##Table of Contents
 
-1. [Get Started](#Get Started)
-2. [Listing](#Listing)
-3. [Change Directory](#Change Directory)
-4. [Print Working Directory](#Print Working Directory)
-5. [Home ~ and Root /](#Home `~` and Root `/`)
-6. [Make Files and Directories](#Make Files and Directories)
-8. [Remove Files and Directories](#Remove Files and Directories)
-9. [Deleting Full Directories](#Deleting Full Directories)
-10. [Moving and Copying Stuff](#Moving and Copying Stuff)
-11. [Danger](#Danger)
-12. [Reading, Writing and Editing](#Reading, Writing and Editing)
-13. [Permission Management](#Permission Management)
-14. [Adapting the Environment](#Adapting the Environment)
-15. [Bash Profile](#Bash Profile)
-16. [Summary](#Summary)
-17. [Conclusion](#Conclusion)
+1. [Get Started](###Get Started)
+2. [Listing](###Listing)
+3. [Change Directory](###Change Directory)
+4. [Print Working Directory](###Print Working Directory)
+5. [Home ~ and Root /](###Home `~` and Root `/`)
+6. [Make Files and Directories](###Make Files and Directories)
+8. [Remove Files and Directories](###Remove Files and Directories)
+9. [Deleting Full Directories](###Deleting Full Directories)
+10. [Moving and Copying Stuff](###Moving and Copying Stuff)
+11. [Danger!](###Danger!)
+12. [Reading, Writing and Editing](###Reading, Writing and Editing)
+13. [Permission Management](###Permission Management)
+14. [Adapting the Environment](###Adapting the Environment)
+15. [Bash Profile](###Bash Profile)
+16. [Summary](###Summary)
+17. [Conclusion](###Conclusion)
 
 ###Get Started
 
@@ -59,7 +59,7 @@ Do `ls` in the Documents directory to list all of your files. Great, now you wan
 
 Very simply- do `cd ..` This moves you back one step in the tree. 
 
-Bear in mind that, in the shell, two periods- `..` generally symbolises a single directory- one step in the three. If you wanted to go back two steps in the tree, you would do this: `cd ../../` Forward-slack `/` is a way of indicating the break-point. If you wanted to step back three steps it would be `cd ../../../` and so on. Although there are quicker ways of getting to other branches of the directory tree than manually cd-ing everywhere. 
+Bear in mind that, in the shell, two periods- `..` generally symbolises a single directory- one step in the tree. If you wanted to go back two steps in the tree, you would do this: `cd ../../` Forward-slash `/` is a way of indicating the break-point. If you wanted to step back three steps it would be `cd ../../../` and so on. Although there are quicker ways of getting to other branches of the directory tree than manually cd-ing everywhere. 
 
 You can navigate fairly intuitively doing `ls` and `cd` forward `cd ..` back to look around. Do this about five times to get a sense of how it works. 
 
@@ -139,7 +139,7 @@ What if you just want to move Reg.sol without making a copy? That's where the se
 
 Now to move Reg.sol back home, do `mv Reg.sol ~/`. To check if successful `cd ..` back then do `ls` to list all the contents. If you can see it, congratulations! Now move it back to where it's supposed to be: `mv Reg.sol Documents`.
 
-###Danger
+###Danger!
 
 The Shell is a bit like being in the cockpit of an aeroplane. There are many dials and things you can do which can greatly increase the speed and effectiveness of your work if you know what you're doing. But if you don't know what you're doing, then things could go badly wrong.
 
