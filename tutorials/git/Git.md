@@ -195,7 +195,6 @@ sed 's/lamb/sheep/' littlelamb1.txt
 ```
 Which should give the corrected output. Try this with a few files to substitute new words in place of old to get a sense of how it works.
 
-
 ###Permission Management
 
 The most useful thing to learn into Permission Management is `su` and `sudo`, which is a program which allows the user to run programs with the security priveleges of another user. `su` stands for `superuser` and `sudo` stands for `superuser do`.
@@ -207,3 +206,77 @@ Now prefix the command with `sudo`:
 `sudo touch file.txt`
 
 Now `ls` to see the newly created file with the other root directories. To delete, do `sudo rm file.txt` and return home- `cd ~`.
+
+`chmod` (change mode) is a UNIX tool for managing permissions for files: whether files are readable, writable or executable. Earlier in this tutorial, we listed the contents of a directory in detail using `ls -l`, which displays not only the name of the files but also their creation date, user and permission structure. For example: 
+
+`drwxrwxr-x 2 physes physes 4096 Jun 20 03:40 Git.md`
+
+The first part, `drwxrwxr -x` defines the set of rules for the file and who can access/modify it. `chmod` is how you change these rules. In general, chmod commands take the form:
+
+`chmod options permissions filename`
+
+Each of the relevant letters stand for an option:
+
+```
+r = read
+w = write
+x = execute
+```
+There are three permission groups:
+
+```
+u = user
+g = members of your group
+o = others
+a = all
+```
+Let's create a file and play around with permissions: `touch permissions.txt`. Now `ls -l` and find this newly created file in the list. For me it is:
+
+`-rw-rw-r--   1 physes physes     0 Jun 26 21:31 permissions.txt
+`
+
+Look at the left: `-rw-rw-r--`. You can see three seperate statements, in order of user, group and others. The user is set to `rw (read/write)` (naturally since it's a text file, there is no `x` option. The group is also set to `rw`, whereas “others” is set just to `r`- read only.
+
+In one `chmod` command, you can define how all three groups get to access `permissions.txt`. Note that it is not compulsory to define rules for all three. 
+
+Let's say you can to give full read/write (`rw`) permissions to the other group:
+
+`chmod o=rw permissions.txt`
+
+-Where “o” is others.
+
+There are three operators you can use to assign permissions to an owner (u/g/o/a). They are:
+```
+=  //sets permissions to the owner
++  //causes a selected mode bit to be added to an existing file mode
+-  //causes the selected mode bit to be removed
+
+chmod u-w permissions.txt  //write permission is removed from “user”
+chmod o+w permissions.txt  //add write permission to “other”
+chmod u=wr permissions.txt //give both write and read perms to user 
+```
+
+After trying it out a couple of times, do `ls -l` and you will see that the line has been changed. `x` only works for programs, not files.
+
+You can change two in one go or even all three. To change all groups to give only read-only access, you can do the following:
+
+`chmod u=wr, u+w, o-w permissions.txt`
+
+Like other Shell tools like `sed`, `awk`, and others, `chmod` has extensive functionality which is worth looking into.
+
+###Adapting the Environment
+
+One of the things that you will need to know about as a programmer is how to set environmental variables. Environmental variables are settings which assign locations to important files or programs which affect how your computer works.
+
+To see the full list of environmental variables, do `env`. This will show a long list. At any time you can check a specific one using a command of the general form `echo $VAR` where VAR is the name of whichever variable you want to check.
+
+The environmental variable of most interest for general purposes is PATH. The PATH variable is used by the shell to search for the source file when executing a program. To display the contents, use `echo $PATH`. This should display something like:
+
+`/bin:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games`
+
+Each seperation, designated by `:`, is an individual path which the Shell checks to execute a program. Often downloading a program will involve adding the location to the path variable. To add to PATH, takes the form of:
+
+`export PATH=$PATH:/path/to/file`
+
+There are a number of ways of doing it, and `export` is one of them. In the above command, “PATH” is a kind of handle which can be replaced by anything. Another example example, to add Solidity to the PATH,you would do `solc=$PATH:/usr/bin/solc`.
+
