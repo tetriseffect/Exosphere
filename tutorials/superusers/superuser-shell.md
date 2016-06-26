@@ -1,4 +1,4 @@
-#Superuser Part I: Shell
+#Superusers Part I: Shell
 
 ##Introduction
 
