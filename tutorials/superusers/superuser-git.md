@@ -4,20 +4,21 @@
 
 In the previous tutorial we covered the basics of navigating the Shell. If you haven't done this or don't know how to use the Shell, you can find the tutorial [here](https://github.com/Physes/Exosphere/blob/master/tutorials/superusers/superuser-shell.md). 
 
+Git is the most widely used version control system in the world. It was created in 2005 by Linus Torvalds, the founder of Linux. Git is mainly used via the shell and can keep a complete history of any project, organized into a repository. Repository “commits” (updates) are encrypted with the SHA1 algorithm and are traceable back to the beginning. Git is also flexible: in large collaborative projects, team members or other developers can `clone` the central repository and work on their own local copy, and then update the origin via `push`.
 
-Git is the most widely used version control system in the world. It was created in 2005 by Linus Torvalds, the founder of Linux. Git is mainly used via the shell and can keep a complete history of any project, organized into a `repository`. Repository `commits` (updates) are encrypted with the SHA1 algorithm and are traceable back to the beginning. Git is also flexible: in large collaborative projects, team members or other developers can `clone` the central repository and work on their own local copy, and then update the origin via `push`.
-
-This tutorial is split into to basic themes: working with Git unilaterally and collaborating with Git.
+This tutorial is split into two basic themes: working with Git unilaterally and collaborating with Git.
 
 ###A Note on Learning
 
 As I said in the first tutorial, by far the best way to learn is to repeat each new skill about five times, followed by intermittent repetitions at increasing time intervals.
-In the beginning, some of the collaborative aspects of Git can be a little more difficult to conceptualize. It's worth committing the simpler stuff to memory so you can give energy to the more complicated aspects.
+In the beginning, some of the collaborative aspects of Git can be a little more difficult to conceptualize. It's worth committing the simpler stuff to automatic memory so you can give energy to the more complicated aspects.
 ##Table of Contents
 
 1. [Getting Started](###Getting Started)
 2. [Initializing Repositories](###Initializing Repositories)
-3. [Adding and Staging Files]{###Adding and Staging Files)
+3. [Check Status and Stage Files](###Adding and Staging Files)
+4. [Line Insertions](###Line Insertions)
+5. [Git Log and Git Config](###Git Log and Git Config)
 
 ###Getting Started
 
@@ -53,17 +54,19 @@ Now delete `.git` in the `Zeus` directory using `rm -rf .git`, then `cd ..` back
 
 Now step into Zeus for the next step, and type `git status`.
 
-###Adding and Staging Files
+###Check Status and Stage Files
 
 In this section we will learn how to create and stage files as part of your project. There are three basic steps:
-```
-1. create/edit/delete files and directories
-2. stage
-3. commit
-```
+
+> 1. create/edit/delete files and directories
+> 2. stage
+> 3. commit
+
 Creating is self-evident. Staging prepares certain files to be committed. `commit` then takes a permenent snapshot in your project history, which you will always be able to observe.
 
-Here's a mnemonic device for the procedure: Change, stage and turn the page!
+Here's a mnemonic device for the procedure: 
+
+#####Change, stage and turn the page!
 
 Why do we need this procedure is important in the first place? The answer is that simply saving your work locally in a text editor or IDE is restrictive for large and complex projects. We need a system to track and potentially reverse changes you make to your software.
 
@@ -76,26 +79,13 @@ We have now done the “Change” bit. Next, let's do “stage”.
 At any time, you can check the status of your project to see what files are staged and unstaged using `git status`. Do this now will display the following output:
 ```
 On branch master
-
-
-
 Initial commit
-
-
-
 Untracked files:
-
-  (use "git add <file>..." to include in what will be committed)
-
-
+(use "git add <file>..." to include in what will be committed)
 
 	README.md
-
 	lib/
-
 	package.json
-
-
 
 nothing added to commit but untracked files present (use "git add" to track)
 ```
@@ -105,15 +95,37 @@ To stage these files, do `git add *`. `*` means “all”. You can stage a file 
 
 Now re-run `git status` to see the new files staged. If you need to unstage a file for further edits, you can use `git rm --cached <file>`, but we don't need to worry about that for now.
 
+The final step in this process is `git commit`. Commits are accompanied by the `-m` flag and a short message to describe what the change was about. To commit these files do: `git commit -m “initialized zeus repository”` or whatever messsage you like.
 
+###Line Insertions and Deletions
 
+When you make a commit, you will see a short summary of the changes you made, in a form that looks something like this:
+```
+2 files changed, 3 insertions(+), 11 deletions(-)
+```
+Changes are recorded on a line-by-line basis. If a particular line is modified it will count as an insertion, as obviously will new lines inserted into the file.
 
+In preparation for the next stage, return to lib/index.js and add a few extra lines. When you're done, stage and commit with `git add` and `git commit -m “<message>”`.
 
+###Git Log and Git Config
 
-##Collaborating in Git
+Now that we have made two commits in `Zeus`, you can check the changes you have made using the command `git log`. Do this now. The Git Log is a record of all the commits you made to the project. The rough format for each entry into the log is:
+```
+commit 	<sha1 hash>
+Author: <user> <email>
+Date: 	<date>
+	<commit message>
+```
+If you haven't used Git before, then `user` and `email` should not contain anything. On your system, you can have as many seperate Git respositories as you like, however you can set your identity on a global basis. To do this, you can use `git config`. Config lets you get and set configuration variables that control all aspects of how Git looks and operates.
 
-###Push and Pull
+Since we'll be working with Github in this tutorial, set your username and email to be the same as your GitHub account. You can do with with the `--global` tag.
+```
+git config --global user.name “John Doe”
+git config --global user.email “johndoe@example.com”
+```
+If the email in your local `git config --global` is the same as your Github account, commits will be included in the history on the site.
 
-###Glossary
+Now recheck `git log` to see your log history with the updated details. Git Log has vast functionality for querying, which is beyond the scope of this course. You can read more about it by checking the official documentation or by doing `git log --help`. The `--help` flag can be used along with any command to find out more about it.
+
 
 
