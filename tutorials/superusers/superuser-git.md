@@ -4,6 +4,7 @@
 
 In the previous tutorial we covered the basics of navigating the Shell. If you haven't done this or don't know how to use the Shell, you can find the tutorial [here](https://github.com/Physes/Exosphere/blob/master/tutorials/superusers/superuser-shell.md). 
 
+
 Git is the most widely used version control system in the world. It was created in 2005 by Linus Torvalds, the founder of Linux. Git is mainly used via the shell and can keep a complete history of any project, organized into a repository. Repository “commits” (updates) are encrypted with the SHA1 algorithm and are traceable back to the beginning. Git is also flexible: in large collaborative projects, team members or other developers can `clone` the central repository and work on their own local copy, and then update the origin via `push`.
 
 This tutorial is split into two basic themes: working with Git unilaterally and collaborating with Git.
@@ -12,6 +13,7 @@ This tutorial is split into two basic themes: working with Git unilaterally and 
 
 As I said in the first tutorial, by far the best way to learn is to repeat each new skill about five times, followed by intermittent repetitions at increasing time intervals.
 In the beginning, some of the collaborative aspects of Git can be a little more difficult to conceptualize. It's worth committing the simpler stuff to automatic memory so you can give energy to the more complicated aspects.
+
 ##Table of Contents
 
 1. [Getting Started](###Getting Started)
@@ -19,6 +21,8 @@ In the beginning, some of the collaborative aspects of Git can be a little more 
 3. [Check Status and Stage Files](###Adding and Staging Files)
 4. [Line Insertions](###Line Insertions)
 5. [Git Log and Git Config](###Git Log and Git Config)
+6. [Introduction to Branching](###Introduction to Branching)
+7. [Merging and Conflict Resolution](###Merging and Conflict Resolution)
 
 ###Getting Started
 
@@ -44,7 +48,7 @@ There are two ways to create a repository (repo for short). Either you can creat
 
 `mkdir Zeus`
 
-Now `cd Zeus` and create an empty Git repository using `git init`. When you `ls` you'll see that nothing seems to be there, but in fact the repository is hidden. Try `ls -alt` and you'll see that the directory contains a new directory called `.git`. Directories and files which begin with a period `.` are always hidden, usually because they contain background functionality which is usually not directly necessary to interact with directly. 
+Now `cd Zeus` and create an empty Git repository using `git init`. When you `ls` you'll see that nothing seems to be there, but in fact the repository is hidden. Try `ls -alt` and you'll see that the directory contains a new directory called `.git`. Directories and files which begin with a period `.` are always hidden, usually because they contain background functionality which is not usually necessary to interact with directly. 
 
 Now delete `.git` in the `Zeus` directory using `rm -rf .git`, then `cd ..` back to home and remove Zeus: `rmdir Zeus`.
 
@@ -57,11 +61,11 @@ Now step into Zeus for the next step, and type `git status`.
 ###Check Status and Stage Files
 
 In this section we will learn how to create and stage files as part of your project. There are three basic steps:
-
-> 1. create/edit/delete files and directories
-> 2. stage
-> 3. commit
-
+```
+1. create/edit/delete files and directories
+2. stage
+3. commit
+```
 Creating is self-evident. Staging prepares certain files to be committed. `commit` then takes a permenent snapshot in your project history, which you will always be able to observe.
 
 Here's a mnemonic device for the procedure: 
@@ -81,8 +85,8 @@ At any time, you can check the status of your project to see what files are stag
 On branch master
 Initial commit
 Untracked files:
-(use "git add <file>..." to include in what will be committed)
 
+  (use "git add <file>..." to include in what will be committed)
 	README.md
 	lib/
 	package.json
@@ -111,10 +115,10 @@ In preparation for the next stage, return to lib/index.js and add a few extra li
 
 Now that we have made two commits in `Zeus`, you can check the changes you have made using the command `git log`. Do this now. The Git Log is a record of all the commits you made to the project. The rough format for each entry into the log is:
 ```
-commit 	<sha1 hash>
+commit <sha1 hash>
 Author: <user> <email>
-Date: 	<date>
-	<commit message>
+Date:   <date>
+    <commit message>
 ```
 If you haven't used Git before, then `user` and `email` should not contain anything. On your system, you can have as many seperate Git respositories as you like, however you can set your identity on a global basis. To do this, you can use `git config`. Config lets you get and set configuration variables that control all aspects of how Git looks and operates.
 
@@ -126,6 +130,61 @@ git config --global user.email “johndoe@example.com”
 If the email in your local `git config --global` is the same as your Github account, commits will be included in the history on the site.
 
 Now recheck `git log` to see your log history with the updated details. Git Log has vast functionality for querying, which is beyond the scope of this course. You can read more about it by checking the official documentation or by doing `git log --help`. The `--help` flag can be used along with any command to find out more about it.
+
+###Introduction to Branching
+
+To see what branch you're on type `git branch` now. By default, you will be on the `master` branch, which is the default line of development.
+
+Branching serves a number of useful purposes. Imagine you were writing a book, but had two conflicting ideas of where the plot would go. In one plot, the protagonist lives, and in the other, the protagonist dies. Obviously two very different stories. Git gives us a solution: develop each plot along alternating `branches`, each with their own unique `commit` histories. And if the alternative proves to be superior than what you had planned originally, you can `merge` back into the original.
+
+You will use the `git branch` command to create, list, delete and rename branches.
+
+To create a new branch, use the above command followed by the name of your new branch. Let's call our new branch `lives` for our alternate plot:
+
+`git branch lives`
+
+Now do `git branches` again to see the two branches listed. You'll notice that `master` is highlighted, which indicates that this is the branch you're currently on. To switch to the new branch, use the `checkout` command. Remember `checkout` as in taking a look to see what's going on. Do this now: `git checkout lives`. Now if you do `git branch` again you'll notice lives is highlighted.
+
+Put some contents into this branch and stage and commit:
+```
+echo Zeus lives > public/plot.txt
+echo Stuff goes here > bin/stuff.txt
+```
+This puts contents into the other two directories that were ignored before. You can add other things if you wish. Now `git add *` and `git commit -m “added zeus lives to plot”`.
+
+So much for the `lives` branch. Let's switch back to master: `git checkout master`. This time we'll create a third plot: disappears.
+
+`git branch disappears`
+
+Since we're still on `master` for the time being, let's fill in the plot:
+
+```
+echo Zeus disappears > public/plot.txt
+echo Stuff goes here > bin/stuff.txt
+```
+And of course, `git add *`, and `git commit -m “added zeus dies to plot”`. Now let's fill in the third plot on the new branch. To switch, do `git checkout dies`:
+```
+echo Zeus dies > public/plot.txt
+echo Stuff goes here > bin/stuff.txt
+```
+Add whatever you want to Stuff. Incidentally, it's always worth checking `git status` to see the files that are untracked or staged. Earlier in this tutorial, only the `lib/` directory appeared in `git status`, because Git does not track empty directories, but now you'll that all directories are being tracked. So now commit on the third branch: `git add *` and `git commit -m “added zeus disappears to plot”`.
+
+At times you may get lost, so just `ls` to see where you are or look at `git branch` and `git log` to reorient yourself.
+
+We've decided that since Zeus is one of the gods, dying would be an improbable plot, so let's delete that one. You can do this using the `-d` flag:
+
+`git branch -d dies`
+
+Because this branch hasn't been merged, you will get a safety error. If you're sure, run this same command again, this time with the `-D` flag instead.
+
+###Merging and Conflict Resolution
+
+
+
+
+
+
+
 
 
 
