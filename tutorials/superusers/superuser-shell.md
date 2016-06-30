@@ -35,9 +35,11 @@ First, let's quickly run through navigating your way around your file system via
 
 If you are on Linux or Mac, open the terminal. If you are on Windows open Powershell. If you don't have this, then download Git by following this link: https://git-scm.com/download/win and choose "64-bit Git for Windows Setup." Powershell should be included. Once this is downloaded Windows users should be able to see Powershell. While the terms "shell", "command line" and "terminal" are interchangeable, we'll use the generic term "shell" from now on regardless of operating system. “Bash” is also used to refer to the specific implementation of the Bourne Shell, but there are also many others available.
 
+For fun, let's look at some shell art. Figlet is a program that generates text banners. To install it, use `sudo apt-get install figlet` and enter your password. You can see a [list of fonts](http://www.figlet.org/examples.html) here and find out how it works. Run it by typing `figlet` followed by the words you want it to display. A slightly more geeky (but entertaining) effect is `cmatrix`, which turns your shell into a computer screen from the Matrix films. Download it using `sudo apt-get install cmatrix` and run it simply by typing `cmatrix`. Stop the effect by pressing `q`. Enjoy!  
+
 ###Listing
 
-Open the shell and type `ls` (“list”). `ls` is a command which displays all the files/folders contained in the current directory. “Directory” and “Folder” are interchangeable terms; folder is a more intuitive term used by File GUI's, but directory is the proper name. 
+Type `ls` (“list”). `ls` is a command which displays all the files/folders contained in the current directory. “Directory” and “Folder” are interchangeable terms; folder is a more intuitive term used by File GUI's, but directory is the proper name. 
 
 If you are "Home", this should display a list of directories, for example, Desktop, Pictures, Documents. This is exactly what you see when you go into your File Explorer. 
 
