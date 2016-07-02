@@ -16,6 +16,7 @@ TASKS:
 * Import/export wallet files
 * Compile and deploy a contract
 * Use "call" to interact locally
+* Differentiate between contracts and accounts ("web3.eth.getCode()")
 * Use "sendTransaction" to change contract on the blockchain
 * Learn all the available Javascript API commands
 * Use JSON-RPC, IPC and HTTP api's over the console
