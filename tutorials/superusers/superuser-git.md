@@ -175,11 +175,15 @@ We've decided that since Zeus is one of the gods, dying would be an improbable p
 
 `git branch -d dies`
 
-Because this branch hasn't been merged, you will get a safety error. If you're sure, run this same command again, this time with the `-D` flag instead.
+Because this branch hasn't been merged, you will get a safety error. If you're sure, run this same command again, this time with the `-D` flag instead: `git branch -D dies`.
 
 ###Merging and Conflict Resolution
 
+One of the most common methodologies for working on production systems is to create a new branch for a new feature or fix. When the new element is fully tested and integrated with the established codebase in the alternate branch, the developer or manager can then `merge` it into the production branch. 
 
+Since we've decided that the "Zeus dies" plot is implausible, checkout the `lives` branch and create a file called `end.txt` and write the conclusion of the plot: `echo Zeus lives but disappears > end.txt`. Now stage and commit to the `lives branch`. Since this seems the most plausible outcome, let's checkout the master branch so we can merge lives into master.
+
+Note that if your staging area (`git status`) has uncommitted changes, Git won't let you merge.
 
 
 
