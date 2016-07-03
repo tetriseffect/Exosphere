@@ -1,0 +1,49 @@
+EXAMPLE OF PARITY JSON-RPC COMMAND:
+
+1. RPC to get balance:
+curl -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_getBalance","params":["0x6c96ade1ddad3511cbe5682beff034d990b5b22a", "latest"],"id":1}' http://127.0.0.1:8545
+
+//Returns Ether balance in wei
+
+2. RPC to get client version:
+curl -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":1}' http://127.0.0.1:8545
+
+3. RPC to get Sha3 result of string:
+curl -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"web3_sha3","params":["0x68656c6c6f20776f726c64"],"id":1}' http://127.0.0.1:8545
+
+4. RPC to check if Eth is syncing:
+curl -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_syncing","params":[],"id":1}' http://127.0.0.1:8545
+
+5. RPC to check eth accounts:
+curl -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_accounts","params":[],"id":1}' http://127.0.0.1:8545
+
+6. RPC to get number of transactions by block hash:
+curl -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_getBlockTransactionCountByHash","params":["0x25889bb23f613a68a7f5b8efd33ea76f10f63a6a4ea5af38e5546f6f9003e80d"],"id":1}' http://127.0.0.1:8545
+
+7. RPC to get info about transaction by transaction hash:
+curl -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0","method":"eth_getTransactionByHash","params":["0x61010e1bf5b5456413f64aebbe1d2fc0efa477632dea7d358389b155de12bcf9"],"id":1}' http://127.0.0.1:8545
+	
+	--OUTPUT:
+	{"jsonrpc":"2.0",
+	"result": {
+	"blockHash":"0x25889bb23f613a68a7f5b8efd33ea76f10f63a6a4ea5af38e5546f6f9003e80d",
+	"blockNumber":"0x1bb0ad",
+	"creates":null,
+	"from":"0xea674fdde714fd979de3edf0f56aa9716b898ec8",
+	"gas":"0x7530",
+	"gasPrice":"0x04a817c800",
+	"hash":"0x61010e1bf5b5456413f64aebbe1d2fc0efa477632dea7d358389b155de12bcf9",
+	"input":"0x",
+	"nonce":"0x03cb44",
+	"to":"0x01926172acec08a9b9481147590bdd25615671f0",
+	"transactionIndex":"0x01",
+	"value":"0x2a0c92368d5c7060"},
+	"id":1}
+
+8. RPC to compile Solidity:
+curl -X POST -H "Content-Type: application/json" --data '{"jsonrpc":"2.0", "method":"eth_compileSolidity", 
+"params":["contract test { function multiply(uint a) returns(uint d) {   return a * 7;   } }"],"id":1}' http://127.0.0.1:8545
+
+//Still no way of unlocking account using JSON-RPC
+
+9. 
