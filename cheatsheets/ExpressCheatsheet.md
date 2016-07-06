@@ -10,10 +10,10 @@ This is a summary of all the essential elements that go into building NodeJS usi
 * `app.get(name)` = get env variables
 * `app.engine(ext.callback)` = define a template engine, e.g. Jade
 * `app.locals` = send app variables to all rendered templates
-* `app.use([path], callback) = assign a middleware to handle HTTP requests over a given path.
-* `app.verb(path, [callback], callback) = define middleware functions that correspond to particular HTTP verbs along a path.
-* `app.route(path).verb[callback..], callback) = defines middleware functions with multiple HTTP verb inputs
-* `app.param([name], callback) = attaches functionality to any path that includes a certain parameter= e.g. "userID".
+* `app.use([path], callback)` = assign a middleware to handle HTTP requests over a given path.
+* `app.verb(path, [callback], callback)` = define middleware functions that correspond to particular HTTP verbs along a path.
+* `app.route(path).verb[callback..], callback)` = defines middleware functions with multiple HTTP verb inputs
+* `app.param([name], callback)` = attaches functionality to any path that includes a certain parameter= e.g. "userID".
 
 ###The Request Object
 
@@ -83,4 +83,22 @@ This will display the message "Hello World" in the browser.
 
 ###Routes
 
-A route is a string in a url which Node can use to
+A route is a path in a url which Express can detect. For example, in `www.foo.com/index`, `/index` is a route.
+
+A route can detect and respond to different HTTP "verbs" (get, post, put, delete), for example:
+```
+app.get('/index', function (req, res) {
+  res.send('Hello');
+});
+
+// POST method route
+app.post('/index', function (req, res) {
+  res.send('Goodbye');
+});
+```
+Obviously instead of posting a short piece of text to the screen you can send back full html files or anything else.
+
+http://expressjs.com/en/guide/routing.html
+
+###Verbs
+
