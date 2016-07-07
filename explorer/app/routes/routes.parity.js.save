@@ -1,0 +1,4 @@
+module.exports = function(app) {
+	var parity = require('../controllers/index.server.parity.js');
+	app.get('/', index.);
+};
