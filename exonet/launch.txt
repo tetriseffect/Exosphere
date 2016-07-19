@@ -1,0 +1,1 @@
+parity --chain /path/to/exogenesis.json --nodiscover --network-id "Exonet"
